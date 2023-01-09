@@ -1,0 +1,22 @@
+﻿USE [RouletteDb]
+GO
+
+/****** Object:  Table [dbo].[BetHistory]    Script Date: 2023/01/09 22:07:38 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[BetHistory](
+    [Id] [int] IDENTITY(10000,1) NOT NULL,
+    [Selection] [int] NOT NULL,
+    [Stake] [decimal](18, 2) NOT NULL,
+CONSTRAINT [PK_BetHistory] PRIMARY KEY CLUSTERED 
+(
+    [Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ 
