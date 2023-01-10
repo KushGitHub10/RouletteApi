@@ -22,36 +22,63 @@ namespace RouletteApi.Repositories
 
         public async Task<PlaceBetResponse> PlaceBetAsync(int selection, decimal stake)
         {
-            var result = await QueryAsync<PlaceBetResponse>($"INSERT INTO BetHistory VALUES({selection}, {stake})", commandType: CommandType.Text);
+            try
+            {
+                var result = await QueryAsync<PlaceBetResponse>($"INSERT INTO BetHistory VALUES({selection}, {stake})", commandType: CommandType.Text);
 
-            if (result.Any() != null)
-            {
-                return new PlaceBetResponse
+                if (result.Any() != null)
                 {
-                    ResponseMessage = "Success"
-                };
-            }
-            else
-            {
-                return new PlaceBetResponse
+                    return new PlaceBetResponse
+                    {
+                        ResponseMessage = "Success"
+                    };
+                }
+                else
                 {
-                    ResponseMessage = "Error - Unable to Place Bet"
-                };
+                    return new PlaceBetResponse
+                    {
+                        ResponseMessage = "Error - Unable to Place Bet"
+                    };
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public async Task<List<int>> PreviousSpinsAsync()
         {
-            var results = await QueryAsync<int>("SELECT TOP 10 SpinValue FROM SpinHistory", commandType: CommandType.Text);
-            List<int> finalList = results.ToList();
-            return finalList;
+            try
+            {
+                var results = await QueryAsync<int>("SELECT TOP 10 SpinValue FROM SpinHistory", commandType: CommandType.Text);
+                List<int> finalList = results.ToList();
+                return finalList;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public async Task<int> SpinAsync()
         {
-            var rnd = new Random().Next(1, 36);
-            await ExecuteAsync($"INSERT INTO SpinHistory VALUES({rnd})", commandType: CommandType.Text);
-            return rnd;
+            try
+            {
+                var rnd = new Random().Next(1, 36);
+                await ExecuteAsync($"INSERT INTO SpinHistory VALUES({rnd})", commandType: CommandType.Text);
+                return rnd;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
     }
 }
